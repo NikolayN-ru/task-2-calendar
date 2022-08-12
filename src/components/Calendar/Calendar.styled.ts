@@ -28,11 +28,9 @@ export const TitleHeader = styled('h1')`
 export const DaysWrapper = styled('div')`
 & {
     width: 100%;
-    /* height: 50px; */
     background-color: #eee;
     padding-left: 50px;
     display: flex;
-    /* justify-content: center; */
 }
 `
 
@@ -43,40 +41,51 @@ export const DayWrapper = styled('div')`
     padding-top: 10px;
     display: flex;
     flex-direction: column;
-    
+    gap: 5px;
 }
 `
 
 export const DayNumber = styled('div')`
 & {
+    margin-left: 6px;
+    cursor: pointer;
     padding-top: 10px;
+    width: 40px;
+    height: 30px;
+    border-radius: 50%;
+}
+&:hover {
+    background-color: tomato;
+    color: #fff;
+}
+&:active {
+    opacity: .6;
 }
 `
 
 export const MonthWrapper = styled('div')`
 & {
-    /* padding-top: 10px; */
     width: 56%;
     display: flex;
     justify-content: space-around;
     gap: 50px;
     background-color: #eee;
+    align-items: center;
 }
 `
 
 export const ArrowWrapper1 = styled('div')`
 &:first-child {
-    transform: rotate(270deg);
+    transform: rotate(270deg) scale(0.7);
 }
 `
 
 export const ArrowWrapper2 = styled('div')`
 & {
-    transform: rotate(90deg);
+    transform: rotate(90deg) scale(0.7);
 }
 `
 
-// CalendarMainWrapper
 export const CalendarMainWrapper = styled('div')`
 & {
     margin-top: 20px;
@@ -91,10 +100,7 @@ export const TimeWrapper = styled('div')`
 
     width: 60%;
     height: 50px;
-    /* border: 1px solid black; */
-    /* background-color: red; */
     display: flex;
-    /* align-items: flex-end; */
     justify-content: flex-end;
     gap: 2px;
     color: #c7c7c7;
@@ -114,19 +120,36 @@ export const TimeItem = styled('div')`
 }
 `
 
-export const DayItem = styled('div')<{state?:boolean}>`
+export const DayItem = styled('div') <{ state?: boolean, extraLink?: boolean }>`
 & {
+    cursor: pointer;
     padding: 2px;
     box-sizing: border-box;
-    cursor: pointer;
     width: 50px;
     height: 50px;
-    /* border: 1px solid #ccc; */
-    /* border: 1px solid #fff; */
-    background-color: ${_ => _.state? '#d7d6ff' : '#eee'};
-    /* margin-bottom: 2px; */
+    background-color: ${_ => _.state ? '#d7d6ff' : '#eee'};
+    border: ${_ => _.extraLink ? '2px solid tomato' : 'none'};
 }
 &:hover {
     background-color: #9b99ff;
+}
+`
+
+export const Footer = styled('div')`
+& {
+    background-color: #f1f1f1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+`
+
+export const FooterLink = styled('div')`
+& {
+    cursor: pointer;
+    color: tomato;
+    font-size: 20px;
+    font-weight: 500;
 }
 `
