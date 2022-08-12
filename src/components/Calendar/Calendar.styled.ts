@@ -88,6 +88,7 @@ export const CalendarMainWrapper = styled('div')`
 `
 export const TimeWrapper = styled('div')`
 & {
+
     width: 60%;
     height: 50px;
     /* border: 1px solid black; */
@@ -95,20 +96,37 @@ export const TimeWrapper = styled('div')`
     display: flex;
     /* align-items: flex-end; */
     justify-content: flex-end;
-    color: #ccc;
- 
+    gap: 2px;
+    color: #c7c7c7;
+    background-color: #fff;
+    margin-bottom: 1px;
+}
+&:hover{
+    opacity: .7;
+}
+`
+
+export const TimeItem = styled('div')`
+&{
+    position: relative;
+    top: -10px;
+    margin-right: 5px;
 }
 `
 
 export const DayItem = styled('div')<{state?:boolean}>`
 & {
+    padding: 2px;
+    box-sizing: border-box;
     cursor: pointer;
     width: 50px;
     height: 50px;
-    border: 1px solid #ccc;
-    background-color: ${_ => _.state? 'red' : '#eee'};
+    /* border: 1px solid #ccc; */
+    /* border: 1px solid #fff; */
+    background-color: ${_ => _.state? '#d7d6ff' : '#eee'};
+    /* margin-bottom: 2px; */
 }
 &:hover {
-    background-color: tomato;
+    background-color: #9b99ff;
 }
 `

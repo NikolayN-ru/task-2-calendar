@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import AddTask from "../../Ico/AddTask";
 import Arrow from "../../Ico/Arrow";
-import { ArrowWrapper1, ArrowWrapper2, CalendarMainWrapper, DayItem, DayNumber, DaysWrapper, DayWrapper, Header, MonthWrapper, TimeWrapper, TitleHeader, Wrapper } from "./Calendar.styled";
+import { ArrowWrapper1, ArrowWrapper2, CalendarMainWrapper, DayItem, DayNumber, DaysWrapper, DayWrapper, Header, MonthWrapper, TimeItem, TimeWrapper, TitleHeader, Wrapper } from "./Calendar.styled";
 
 const LocalState: any = [
     {
@@ -45,12 +45,9 @@ const Calendar: FC = ({ }) => {
             // console.log('task - on-added')
             newTime[idItem + 9] = null;
         }
-        // console.log(newTime, 'newTime')
 
         const newState = [...state]
         newState[id].time = newTime
-
-        // console.log(newState, 'newState')
 
         setState((prev: any) => {
             return newState
@@ -67,7 +64,6 @@ const Calendar: FC = ({ }) => {
             </Header>
             <DaysWrapper>
                 {weekly.map((item, id) => {
-                    // {console.log(state[5].day, id)}
                     return (
                         <DayWrapper key={id}>
                             {item}
@@ -92,30 +88,25 @@ const Calendar: FC = ({ }) => {
                     return (
                         <TimeWrapper key={idItem}>
                             <>
-                                {timeItem}
+                            <TimeItem>
+                                {timeItem}:00
+                            </TimeItem>
                                 {state.map((item: any, id: number) => {
-                                    // {console.log(typeof(Number(timeItem)), timeItem)}
                                     let a = item.time
                                     let b = Number(timeItem)
                                     {
                                         if (a[b] != undefined) {
-                                            // console.log(a[b])
                                             return (
                                                 <DayItem key={id} state={true} onClick={() => { changeEvent(id, idItem) }}>
                                                     {a[b]}
                                                 </DayItem>
                                             )
                                         }
-                                        // console.log(a[b], b, timeItem)
                                     }
                                     return (
                                         <DayItem key={id} state={false} onClick={() => { changeEvent(id, idItem) }} />
                                     )
-                                    // <DayItem state={item.time[10] ? false : true}>
 
-                                    {/* {item.time[18] && 'Y'} */ }
-                                    {/* {timeItem} */ }
-                                    // </DayItem>
                                 })}
                             </>
 
