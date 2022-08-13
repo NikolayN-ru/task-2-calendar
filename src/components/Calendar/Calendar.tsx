@@ -18,7 +18,7 @@ import {
     Wrapper
 } from "./Calendar.styled";
 
-const LocalState: any = [
+const LocalState: any = [ // any !!
     { day: 25, time: { 11: '11-task', 18: '18-tasks' } },
     { day: 26, time: {} },
     { day: 27, time: {} },
@@ -30,12 +30,12 @@ const LocalState: any = [
 
 const weekly = ['w', 't', 'w', 't', 'f', 's', 's'];
 
-const time = ['09', '10', '11', '12', '13', '14', '15', '16', '17', '18'];
-const initialBuffer = { z: -1, x: -1 };
+const time = ['09', '10', '11', '12', '13', '14', '15', '16', '17', '18']; // допилить
+const initialBuffer = { z: -1, x: -1 }; // y ! 
 
 const Calendar: FC = () => {
     const [state, setState] = useState(LocalState);
-    const [deleteItem, setDeleteItem] = useState<Boolean>(false);
+    const [deleteItem, setDeleteItem] = useState<boolean>(false);
     const [buffer, setBuffer] = useState(initialBuffer);
 
     const changeEvent = (id: number, idItem: number) => {
@@ -44,7 +44,7 @@ const Calendar: FC = () => {
         let b = false;
         if (!state[id].time[idItem + 9]) {
             const newTime = state[id].time;
-            const task = prompt('vvod')
+            const task = prompt('vvod');
             newTime[idItem + 9] = task;
             newState[id].time = newTime;
             bu = initialBuffer
@@ -58,8 +58,8 @@ const Calendar: FC = () => {
                 return !b
             }
         });
-        setState((prev: any) => newState);
-        if (JSON.stringify(bu) === JSON.stringify(buffer)) {
+        setState(newState); 
+        if (JSON.stringify(bu) === JSON.stringify(buffer)) { // сравнить по значению
             bu = initialBuffer
         }
         setBuffer(() => bu);
@@ -119,7 +119,7 @@ const Calendar: FC = () => {
                                             return (
                                                 <DayItem key={id} state={true}
                                                     onClick={() => { changeEvent(id, idItem) }}
-                                                    extraLink={JSON.stringify(extra) === JSON.stringify(buffer) ? true : false}>
+                                                    extraLink={JSON.stringify(extra) === JSON.stringify(buffer)}>
                                                     {item.time[Number(timeItem)]}
                                                 </DayItem>
                                             )
@@ -128,7 +128,7 @@ const Calendar: FC = () => {
                                     return (
                                         <DayItem key={id} state={false}
                                             onClick={() => { changeEvent(id, idItem) }}
-                                            extraLink={JSON.stringify(extra) === JSON.stringify(buffer) ? true : false} />
+                                            extraLink={JSON.stringify(extra) === JSON.stringify(buffer)} />
                                     )
                                 })}
                             </>
