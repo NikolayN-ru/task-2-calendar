@@ -4,7 +4,6 @@ export const Wrapper = styled('div')`
 & {
     max-width: 740px;
     margin: 0 auto;
-    /* background-color: green; */
 }
 `
 
@@ -31,19 +30,20 @@ export const ButtonTask = styled('button')`
     cursor: pointer;
     border: none;
     background-color: #fff;
+    transition: all .2s ;
 }
 &:hover {
-    opacity: .7;
+    transform: scale(1.5);
 }
 `
 
 export const DaysWrapper = styled('div')`
 & {
     width: 100%;
-    background-color: #eee;
+    background-color: #F6F6F6;
     display: flex;
     box-sizing: border-box;
-    padding-left: 50px;
+    padding-left: 70px;
     text-align: start;
     height: 80px;
 }
@@ -51,7 +51,6 @@ export const DaysWrapper = styled('div')`
 
 export const DayWrapper = styled('div')`
 & {
-    /* width: 50px; */
     flex-grow: 1;
     height: 100px;
     padding-top: 10px;
@@ -59,26 +58,18 @@ export const DayWrapper = styled('div')`
     flex-direction: column;
     gap: 5px;
     align-items: center;
-
 }
 `
 
 export const DayNumber = styled('div') <{ state?: boolean }>`
 & {
     cursor: pointer;
-    /* margin-left: 29px; */
     padding-top: 10px;
-    /* padding-left: 5px; */
     width: 40px;
     height: 30px;
     border-radius: 50%;
     color: ${_ => _.state && '#fff'};
     background-color: ${_ => _.state && 'tomato'};
-    /* display: flex;
-    flex-direction: column;
-    justify-content: center; */
-    /* padding-left: 10px; */
-    /* box-sizing: border-box; */
     text-align: center;
 }
 
@@ -97,17 +88,17 @@ export const MonthWrapper = styled('div')`
 & {
     width: 100%;
     display: flex;
-    padding-left: 80px;
+    padding-left: 100px;
     box-sizing: border-box;
-    background-color: #eee;
+    background-color: #F6F6F6;
     align-items: center;
-    /* padding-left: 30px; */
+    border-bottom: 1px solid #ECECEC;
 }
 `
 
 export const TitleMonth = styled('span')`
 & {
-flex-grow: 1;
+    flex-grow: 1;
 }
 `
 
@@ -125,37 +116,40 @@ export const ArrowWrapper2 = styled('div')`
 
 export const CalendarMainWrapper = styled('div')`
 & {
-    /* margin-top: 20px; */
+    padding-top: 20px;
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
-    height: 400px;
+    height: 600px;
     overflow: scroll;
 }
 `
 export const TimeWrapper = styled('div')`
 & {
 
-    width: 60%;
+    width: 100%;
     height: 50px;
     display: flex;
     justify-content: flex-end;
-    gap: 2px;
     color: #c7c7c7;
-    background-color: #fff;
-    margin-bottom: 1px;
+    padding-left: 80px;
+    position: relative;
+    position: relative;
+    right: -5px;
 }
 &:hover{
     opacity: .7;
 }
+
 `
 
 export const TimeItem = styled('div')`
 &{
-    position: relative;
+    position: absolute;
+    left: 20px;
     top: -10px;
-    margin-right: 5px;
+    box-sizing: border-box;
 }
 `
 
@@ -164,24 +158,29 @@ export const DayItem = styled('div') <{ state?: boolean, extraLink?: boolean }>`
     cursor: pointer;
     padding: 2px;
     box-sizing: border-box;
-    width: 50px;
+    width: 100%;
     height: 50px;
-    background-color: ${_ => _.state ? '#d7d6ff' : '#eee'};
-    border: ${_ => _.extraLink ? '2px solid tomato' : 'none'};
+    border: 2px solid #ECECEC;
+    border-left: none;
+    border-top: none;
+    background-color: ${_ => _.state ? '#EBECFF' : '#fff'};
+    background-color: ${_ => _.extraLink && '#B3B7FF'};
     overflow: hidden;
+    color: gray;
 }
 &:hover {
-    background-color: #9b99ff;
+    background-color: #B3B7FF;
 }
 `
 
 export const Footer = styled('div')`
 & {
-    background-color: #f1f1f1;
+    background-color: #F6F6F6;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px;
+    border-top: 1px solid #ECECEC;
 }
 `
 
@@ -191,6 +190,7 @@ export const FooterLink = styled('div')`
     color: tomato;
     font-size: 20px;
     font-weight: 500;
+    padding-left: 40px;
 }
 &:hover {
     opacity: .7;

@@ -30,11 +30,11 @@ interface ILocalState {
 const LocalState: ILocalState[] = [
     { day: 25, time: { 11: '11-task', 18: '18-tasks' } },
     { day: 26, time: {} },
-    { day: 27, time: {} },
+    { day: 27, time: { 3: '3-task' } },
     { day: 28, time: {} },
     { day: 29, time: { 10: '10-mock-data', 17: '17-mock-data' } },
     { day: 30, time: {} },
-    { day: 31, time: {} },
+    { day: 31, time: { 7: '7-task' } },
 ];
 
 const weekly: string[] = 'M T W T F S S'.split(' ');
@@ -44,7 +44,7 @@ const time: number[] = [];
     for (let i = 0; i <= 24; i++) {
         time.push(i)
     }
-}())
+}());
 
 interface IBuffer {
     x: number;
@@ -70,9 +70,9 @@ const Calendar: FC = () => {
         }
         setDeleteItem(() => {
             if (buffer.x < 0) {
-                return b
+                return b;
             } else {
-                return !b
+                return !b;
             }
         });
         setState(newState);
@@ -80,7 +80,6 @@ const Calendar: FC = () => {
             localBuffer = initialBuffer;
         }
         setBuffer(() => localBuffer);
-        setCandidateTask(initialBuffer);
     }
 
     const ItemDelete = () => {
@@ -105,7 +104,7 @@ const Calendar: FC = () => {
             setBuffer(initialBuffer)
             setCandidateTask(initialBuffer);
         } else {
-            console.log('выберите клетку')
+            console.log('выберите клетку');
         }
     }
 
@@ -128,14 +127,6 @@ const Calendar: FC = () => {
                             <DayNumber state={id === 4 && true}>
                                 {state[id].day}
                             </DayNumber>
-
-
-
-
-
-
-
-
                         </DayWrapper>
                     )
                 })}
@@ -145,7 +136,7 @@ const Calendar: FC = () => {
                     <Arrow />
                 </ArrowWrapper1>
                 <TitleMonth>
-                March 2019
+                    March 2019
                 </TitleMonth>
                 <ArrowWrapper2>
                     <Arrow />
@@ -153,7 +144,6 @@ const Calendar: FC = () => {
             </MonthWrapper>
 
 
-            
             <CalendarMainWrapper>
                 {buffer && time.map((timeItem, idItem) => {
                     return (
