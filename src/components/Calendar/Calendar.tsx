@@ -4,6 +4,7 @@ import Arrow from "../../Ico/Arrow";
 import {
     ArrowWrapper1,
     ArrowWrapper2,
+    ButtonTask,
     CalendarMainWrapper,
     DayItem, DayNumber,
     DaysWrapper,
@@ -18,61 +19,93 @@ import {
     Wrapper
 } from "./Calendar.styled";
 
-const LocalState: any = [ // any !!
+interface ILocalState {
+    day: number;
+    time: {
+        [key: number]: string | undefined | null,
+    }
+}
+
+const LocalState: ILocalState[] = [
     { day: 25, time: { 11: '11-task', 18: '18-tasks' } },
     { day: 26, time: {} },
     { day: 27, time: {} },
     { day: 28, time: {} },
-    { day: 29, time: { 10: '10-task', 17: '17-tasks' } },
+    { day: 29, time: { 10: '10-mock-data', 17: '17-mock-data' } },
     { day: 30, time: {} },
     { day: 31, time: {} },
 ];
 
-const weekly = ['w', 't', 'w', 't', 'f', 's', 's'];
+const weekly: string[] = 'w t w t f s s'.split(' ');
 
-const time = ['09', '10', '11', '12', '13', '14', '15', '16', '17', '18']; // допилить
-const initialBuffer = { z: -1, x: -1 }; // y ! 
+const time: number[] = [];
+(function () {
+    for (let i = 0; i <= 24; i++) {
+        time.push(i)
+    }
+}())
+
+interface IBuffer {
+    x: number;
+    y: number;
+}
+
+const initialBuffer: IBuffer = { x: -1, y: -1 };
 
 const Calendar: FC = () => {
-    const [state, setState] = useState(LocalState);
+    const [state, setState] = useState<ILocalState[]>(LocalState);
     const [deleteItem, setDeleteItem] = useState<boolean>(false);
-    const [buffer, setBuffer] = useState(initialBuffer);
+    const [buffer, setBuffer] = useState<IBuffer>(initialBuffer);
+    const [canditateTask, setCandidateTask] = useState<IBuffer>(initialBuffer);
 
     const changeEvent = (id: number, idItem: number) => {
-        let bu = { z: id, x: idItem };
+        let localBuffer = { x: id, y: idItem };
         const newState = [...state];
         let b = false;
-        if (!state[id].time[idItem + 9]) {
-            const newTime = state[id].time;
-            const task = prompt('vvod');
-            newTime[idItem + 9] = task;
-            newState[id].time = newTime;
-            bu = initialBuffer
+        if (!state[id].time[idItem]) {
+            setCandidateTask(localBuffer);
         } else {
             b = true;
         }
         setDeleteItem(() => {
-            if (buffer.z < 0) {
+            if (buffer.x < 0) {
                 return b
             } else {
                 return !b
             }
         });
-        setState(newState); 
-        if (JSON.stringify(bu) === JSON.stringify(buffer)) { // сравнить по значению
-            bu = initialBuffer
+        setState(newState);
+        if (localBuffer.x === buffer.x && localBuffer.y === buffer.y) {
+            localBuffer = initialBuffer;
         }
-        setBuffer(() => bu);
+        setBuffer(() => localBuffer);
+        setCandidateTask(initialBuffer);
     }
 
     const ItemDelete = () => {
-        const newTime2 = state[buffer.z].time;
-        newTime2[buffer.x + 9] = undefined;
+        const newTime2 = state[buffer.x].time;
+        newTime2[buffer.y] = undefined;
         const newState2 = [...state];
-        newState2[buffer.z].time = newTime2;
-        setState((prev: any) => newState2);
+        newState2[buffer.x].time = newTime2;
+        setState(newState2);
         setDeleteItem(false);
-        setBuffer(initialBuffer)
+        setCandidateTask(initialBuffer);
+        setBuffer(initialBuffer);
+    }
+
+    const AddTaskItem = () => {
+        if (canditateTask.x > -1) {
+            const newState = [...state];
+            const newTime = state[canditateTask.x].time;
+            const task = prompt('Enter your task');
+            newTime[canditateTask.y] = task;
+            newState[canditateTask.x].time = newTime;
+            setState(newState);
+            setBuffer(initialBuffer)
+            setCandidateTask(initialBuffer);
+        } else {
+            console.log('выберите клетку')
+        }
     }
 
     return (
@@ -81,14 +114,17 @@ const Calendar: FC = () => {
                 <TitleHeader>
                     Interview Calendar
                 </TitleHeader>
-                <AddTask />
+                <ButtonTask onClick={() => AddTaskItem()}>
+
+                    <AddTask />
+                </ButtonTask>
             </Header>
             <DaysWrapper>
                 {weekly.map((item, id) => {
                     return (
                         <DayWrapper key={id}>
                             {item}
-                            <DayNumber>
+                            <DayNumber state={id === 4 && true}>
                                 {state[id].day}
                             </DayNumber>
                         </DayWrapper>
@@ -112,15 +148,15 @@ const Calendar: FC = () => {
                                 <TimeItem>
                                     {timeItem}:00
                                 </TimeItem>
-                                {state.map((item: any, id: number) => {
-                                    const extra = { z: id, x: idItem }
+                                {state.map((item: ILocalState, id: number) => {
+                                    const extra = { x: id, y: idItem }
                                     {
-                                        if (item.time[Number(timeItem)] !== undefined) {
+                                        if (item.time[timeItem] !== undefined) {
                                             return (
                                                 <DayItem key={id} state={true}
                                                     onClick={() => { changeEvent(id, idItem) }}
-                                                    extraLink={JSON.stringify(extra) === JSON.stringify(buffer)}>
-                                                    {item.time[Number(timeItem)]}
+                                                    extraLink={extra.x === buffer.x && extra.y === buffer.y}>
+                                                    {item.time[timeItem]}
                                                 </DayItem>
                                             )
                                         }
@@ -128,7 +164,7 @@ const Calendar: FC = () => {
                                     return (
                                         <DayItem key={id} state={false}
                                             onClick={() => { changeEvent(id, idItem) }}
-                                            extraLink={JSON.stringify(extra) === JSON.stringify(buffer)} />
+                                            extraLink={extra.x === buffer.x && extra.y === buffer.y} />
                                     )
                                 })}
                             </>
@@ -137,11 +173,9 @@ const Calendar: FC = () => {
                 })}
             </CalendarMainWrapper>
             <Footer>
-                {
-                    deleteItem && <>
-                        <FooterLink>Today</FooterLink>
-                        <FooterLink onClick={() => ItemDelete()} >Delete</FooterLink>
-                    </>
+                <FooterLink>Today</FooterLink>
+                {deleteItem &&
+                    <FooterLink onClick={() => ItemDelete()} >Delete</FooterLink>
                 }
             </Footer>
         </Wrapper>

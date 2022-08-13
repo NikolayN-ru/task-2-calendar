@@ -2,8 +2,9 @@ import styled from 'styled-components';
 
 export const Wrapper = styled('div')`
 & {
-    max-width: 750px;
+    max-width: 740px;
     margin: 0 auto;
+    /* background-color: green; */
 }
 `
 
@@ -22,6 +23,17 @@ export const TitleHeader = styled('h1')`
 & {
     font-size: 22px;
     font-weight: normal;
+}
+`
+
+export const ButtonTask = styled('button')`
+& {
+    cursor: pointer;
+    border: none;
+    background-color: #fff;
+}
+&:hover {
+    opacity: .7;
 }
 `
 
@@ -45,15 +57,20 @@ export const DayWrapper = styled('div')`
 }
 `
 
-export const DayNumber = styled('div')`
+export const DayNumber = styled('div') <{ state?: boolean }>`
 & {
-    margin-left: 6px;
     cursor: pointer;
+    margin-left: 6px;
     padding-top: 10px;
     width: 40px;
     height: 30px;
     border-radius: 50%;
+    color: ${_ => _.state && '#fff'};
+    background-color: ${_ => _.state && 'tomato'};
 }
+
+
+
 &:hover {
     background-color: tomato;
     color: #fff;
@@ -93,6 +110,8 @@ export const CalendarMainWrapper = styled('div')`
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
+    height: 400px;
+    overflow: scroll;
 }
 `
 export const TimeWrapper = styled('div')`
@@ -129,6 +148,7 @@ export const DayItem = styled('div') <{ state?: boolean, extraLink?: boolean }>`
     height: 50px;
     background-color: ${_ => _.state ? '#d7d6ff' : '#eee'};
     border: ${_ => _.extraLink ? '2px solid tomato' : 'none'};
+    overflow: hidden;
 }
 &:hover {
     background-color: #9b99ff;
@@ -151,5 +171,8 @@ export const FooterLink = styled('div')`
     color: tomato;
     font-size: 20px;
     font-weight: 500;
+}
+&:hover {
+    opacity: .7;
 }
 `
