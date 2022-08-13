@@ -41,32 +41,45 @@ export const DaysWrapper = styled('div')`
 & {
     width: 100%;
     background-color: #eee;
-    padding-left: 50px;
     display: flex;
+    box-sizing: border-box;
+    padding-left: 50px;
+    text-align: start;
+    height: 80px;
 }
 `
 
 export const DayWrapper = styled('div')`
 & {
-    width: 50px;
+    /* width: 50px; */
+    flex-grow: 1;
     height: 100px;
     padding-top: 10px;
     display: flex;
     flex-direction: column;
     gap: 5px;
+    align-items: center;
+
 }
 `
 
 export const DayNumber = styled('div') <{ state?: boolean }>`
 & {
     cursor: pointer;
-    margin-left: 6px;
+    /* margin-left: 29px; */
     padding-top: 10px;
+    /* padding-left: 5px; */
     width: 40px;
     height: 30px;
     border-radius: 50%;
     color: ${_ => _.state && '#fff'};
     background-color: ${_ => _.state && 'tomato'};
+    /* display: flex;
+    flex-direction: column;
+    justify-content: center; */
+    /* padding-left: 10px; */
+    /* box-sizing: border-box; */
+    text-align: center;
 }
 
 
@@ -82,12 +95,19 @@ export const DayNumber = styled('div') <{ state?: boolean }>`
 
 export const MonthWrapper = styled('div')`
 & {
-    width: 56%;
+    width: 100%;
     display: flex;
-    justify-content: space-around;
-    gap: 50px;
+    padding-left: 80px;
+    box-sizing: border-box;
     background-color: #eee;
     align-items: center;
+    /* padding-left: 30px; */
+}
+`
+
+export const TitleMonth = styled('span')`
+& {
+flex-grow: 1;
 }
 `
 
@@ -105,7 +125,7 @@ export const ArrowWrapper2 = styled('div')`
 
 export const CalendarMainWrapper = styled('div')`
 & {
-    margin-top: 20px;
+    /* margin-top: 20px; */
     width: 100%;
     display: flex;
     flex-wrap: wrap;

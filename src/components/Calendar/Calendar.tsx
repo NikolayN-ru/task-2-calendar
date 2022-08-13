@@ -16,6 +16,7 @@ import {
     TimeItem,
     TimeWrapper,
     TitleHeader,
+    TitleMonth,
     Wrapper
 } from "./Calendar.styled";
 
@@ -36,7 +37,7 @@ const LocalState: ILocalState[] = [
     { day: 31, time: {} },
 ];
 
-const weekly: string[] = 'w t w t f s s'.split(' ');
+const weekly: string[] = 'M T W T F S S'.split(' ');
 
 const time: number[] = [];
 (function () {
@@ -127,6 +128,14 @@ const Calendar: FC = () => {
                             <DayNumber state={id === 4 && true}>
                                 {state[id].day}
                             </DayNumber>
+
+
+
+
+
+
+
+
                         </DayWrapper>
                     )
                 })}
@@ -135,11 +144,16 @@ const Calendar: FC = () => {
                 <ArrowWrapper1>
                     <Arrow />
                 </ArrowWrapper1>
+                <TitleMonth>
                 March 2019
+                </TitleMonth>
                 <ArrowWrapper2>
                     <Arrow />
                 </ArrowWrapper2>
             </MonthWrapper>
+
+
+            
             <CalendarMainWrapper>
                 {buffer && time.map((timeItem, idItem) => {
                     return (
