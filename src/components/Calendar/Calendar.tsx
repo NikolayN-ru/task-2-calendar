@@ -142,36 +142,32 @@ const Calendar: FC = () => {
                     <Arrow />
                 </ArrowWrapper2>
             </MonthWrapper>
-
-
             <CalendarMainWrapper>
                 {buffer && time.map((timeItem, idItem) => {
                     return (
                         <TimeWrapper key={idItem}>
-                            <>
-                                <TimeItem>
-                                    {timeItem}:00
-                                </TimeItem>
-                                {state.map((item: ILocalState, id: number) => {
-                                    const extra = { x: id, y: idItem }
-                                    {
-                                        if (item.time[timeItem] !== undefined) {
-                                            return (
-                                                <DayItem key={id} state={true}
-                                                    onClick={() => { changeEvent(id, idItem) }}
-                                                    extraLink={extra.x === buffer.x && extra.y === buffer.y}>
-                                                    {item.time[timeItem]}
-                                                </DayItem>
-                                            )
-                                        }
+                            <TimeItem>
+                                {timeItem}:00
+                            </TimeItem>
+                            {state.map((item: ILocalState, id: number) => {
+                                const extra = { x: id, y: idItem }
+                                {
+                                    if (item.time[timeItem] !== undefined) {
+                                        return (
+                                            <DayItem key={id} state={true}
+                                                onClick={() => { changeEvent(id, idItem) }}
+                                                extraLink={extra.x === buffer.x && extra.y === buffer.y}>
+                                                {item.time[timeItem]}
+                                            </DayItem>
+                                        )
                                     }
-                                    return (
-                                        <DayItem key={id} state={false}
-                                            onClick={() => { changeEvent(id, idItem) }}
-                                            extraLink={extra.x === buffer.x && extra.y === buffer.y} />
-                                    )
-                                })}
-                            </>
+                                }
+                                return (
+                                    <DayItem key={id} state={false}
+                                        onClick={() => { changeEvent(id, idItem) }}
+                                        extraLink={extra.x === buffer.x && extra.y === buffer.y} />
+                                )
+                            })}
                         </TimeWrapper>
                     )
                 })}
